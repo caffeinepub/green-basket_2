@@ -1,0 +1,159 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-a-mandatory-login-gate-so-unauthenticated-users-cannot-add-items-to-the-cart-subscribe-to-plans-proceed-to-checkout-or-trigger-any-whatsapp-ordering-action-including-whatsapp-checkout-and-whatsapp-subscribe",
+      "featureTitle": "Implement a mandatory login gate so unauthenticated users cannot: add items to the cart, subscribe to plans, proceed to checkout, or trigger any WhatsApp ordering action (including WhatsApp checkout and WhatsApp subscribe).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/cart/CartSheet.tsx",
+        "frontend/src/components/products/ProductCard.tsx",
+        "frontend/src/components/sections/SaladSection.tsx",
+        "frontend/src/components/sections/SubscriptionSection.tsx",
+        "frontend/src/features/auth/AuthGateProvider.tsx",
+        "frontend/src/features/auth/useAuthGate.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-for-any-blocked-action-add-to-cart-subscribe-checkout-whatsapp-ordering-show-a-popup-containing-the-exact-text-please-login-to-continue-and-then-present-the-login-ui-in-the-same-flow",
+      "featureTitle": "For any blocked action (Add to Cart, Subscribe, Checkout, WhatsApp ordering), show a popup containing the exact text \"Please Login to Continue\" and then present the login UI in the same flow.",
+      "files": [
+        "frontend/src/components/auth/LoginDialog.tsx",
+        "frontend/src/components/auth/LoginRequiredDialog.tsx",
+        "frontend/src/features/auth/AuthGateProvider.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-authentication-experience-that-uses-the-existing-internet-identity-integration-as-the-supported-login-method-and-integrate-it-into-the-existing-header-login-button",
+      "featureTitle": "Add an authentication experience that uses the existing Internet Identity integration as the supported login method, and integrate it into the existing Header \"Login\" button.",
+      "files": [
+        "frontend/src/components/auth/LoginDialog.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/features/auth/sessionCache.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-17"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-user-profile-capture-edit-flow-that-collects-and-stores-the-following-fields-for-the-logged-in-user-full-name-email-address-mobile-number-delivery-address",
+      "featureTitle": "Implement a user profile capture/edit flow that collects and stores the following fields for the logged-in user: Full Name, Email Address, Mobile Number, Delivery Address.",
+      "files": [
+        "frontend/src/components/account/ProfileCompletionDialog.tsx",
+        "frontend/src/components/account/ProfileForm.tsx",
+        "frontend/src/components/cart/CartSheet.tsx",
+        "frontend/src/features/auth/AuthGateProvider.tsx",
+        "frontend/src/features/profile/profileQueries.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-18"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-post-login-account-area-that-allows-the-logged-in-user-to-view-profile-edit-address-view-order-history-view-active-subscriptions-and-logout",
+      "featureTitle": "Add a post-login account area that allows the logged-in user to: View Profile, Edit Address, View Order History, View Active Subscriptions, and Logout.",
+      "files": [
+        "frontend/src/components/account/AccountSheet.tsx",
+        "frontend/src/components/account/ActiveSubscriptionsList.tsx",
+        "frontend/src/components/account/OrderHistoryList.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/features/orders/orderQueries.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-19"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-whatsapp-checkout-message-generation-to-include-customer-details-and-order-details-in-the-message-body-customer-name-email-mobile-number-delivery-address-selected-items-quantity-total-amount-then-redirect-open-https-wa-me-918999844337-text-auto-generated-order-message",
+      "featureTitle": "Update the WhatsApp checkout message generation to include customer details and order details in the message body: Customer Name, Email, Mobile Number, Delivery Address, Selected Items, Quantity, Total Amount; then redirect/open: https://wa.me/918999844337?text=[AUTO GENERATED ORDER MESSAGE].",
+      "files": [
+        "frontend/src/components/cart/CartSheet.tsx",
+        "frontend/src/utils/whatsappCheckout.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-20"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-existing-cart-based-whatsapp-checkout-flow-and-the-subscription-whatsapp-action-are-both-protected-by-the-login-gate-and-use-the-user-profile-fields-where-applicable-checkout-message-must-include-profile-fields",
+      "featureTitle": "Ensure the existing cart-based WhatsApp checkout flow and the subscription WhatsApp action are both protected by the login gate and use the user profile fields where applicable (checkout message must include profile fields).",
+      "files": [
+        "frontend/src/components/cart/CartSheet.tsx",
+        "frontend/src/components/sections/SubscriptionSection.tsx",
+        "frontend/src/features/orders/orderMutations.ts"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "authorization@4.0.0"
+      ],
+      "testIds": [
+        "REQ-21"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

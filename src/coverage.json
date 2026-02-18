@@ -1,0 +1,182 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-18T02:25:24.968Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 8,
+    "implemented": 7,
+    "items": [
+      {
+        "id": "REQ-15",
+        "summary": "Implement a mandatory login gate so unauthenticated users cannot: add items to the cart, subscribe to plans, proceed to checkout, or trigger any WhatsApp ordering action (including WhatsApp checkout and WhatsApp subscribe).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/features/auth/AuthGateProvider.tsx",
+          "frontend/src/features/auth/useAuthGate.ts",
+          "frontend/src/components/products/ProductCard.tsx",
+          "frontend/src/components/sections/SaladSection.tsx",
+          "frontend/src/components/sections/SubscriptionSection.tsx",
+          "frontend/src/components/cart/CartSheet.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/features/auth/AuthGateProvider.tsx",
+          "frontend/src/features/auth/useAuthGate.ts",
+          "frontend/src/components/products/ProductCard.tsx",
+          "frontend/src/components/sections/SaladSection.tsx",
+          "frontend/src/components/sections/SubscriptionSection.tsx",
+          "frontend/src/components/cart/CartSheet.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "For any blocked action (Add to Cart, Subscribe, Checkout, WhatsApp ordering), show a popup containing the exact text \"Please Login to Continue\" and then present the login UI in the same flow.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/auth/LoginRequiredDialog.tsx",
+          "frontend/src/components/auth/LoginDialog.tsx",
+          "frontend/src/features/auth/AuthGateProvider.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/auth/LoginRequiredDialog.tsx",
+          "frontend/src/components/auth/LoginDialog.tsx",
+          "frontend/src/features/auth/AuthGateProvider.tsx"
+        ]
+      },
+      {
+        "id": "REQ-17",
+        "summary": "Add an authentication experience that uses the existing Internet Identity integration as the supported login method, and integrate it into the existing Header \"Login\" button.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/layout/Header.tsx",
+          "frontend/src/components/auth/LoginDialog.tsx",
+          "frontend/src/features/auth/sessionCache.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/layout/Header.tsx",
+          "frontend/src/components/auth/LoginDialog.tsx",
+          "frontend/src/features/auth/sessionCache.ts"
+        ]
+      },
+      {
+        "id": "REQ-18",
+        "summary": "Implement a user profile capture/edit flow that collects and stores the following fields for the logged-in user: Full Name, Email Address, Mobile Number, Delivery Address.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/features/profile/profileQueries.ts",
+          "frontend/src/components/account/ProfileForm.tsx",
+          "frontend/src/components/account/ProfileCompletionDialog.tsx",
+          "frontend/src/components/cart/CartSheet.tsx",
+          "frontend/src/features/auth/AuthGateProvider.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/features/profile/profileQueries.ts",
+          "frontend/src/components/account/ProfileForm.tsx",
+          "frontend/src/components/account/ProfileCompletionDialog.tsx",
+          "frontend/src/components/cart/CartSheet.tsx",
+          "frontend/src/features/auth/AuthGateProvider.tsx"
+        ]
+      },
+      {
+        "id": "REQ-19",
+        "summary": "Add a post-login account area that allows the logged-in user to: View Profile, Edit Address, View Order History, View Active Subscriptions, and Logout.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/account/AccountSheet.tsx",
+          "frontend/src/features/orders/orderQueries.ts",
+          "frontend/src/components/account/OrderHistoryList.tsx",
+          "frontend/src/components/account/ActiveSubscriptionsList.tsx",
+          "frontend/src/components/layout/Header.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/account/AccountSheet.tsx",
+          "frontend/src/features/orders/orderQueries.ts",
+          "frontend/src/components/account/OrderHistoryList.tsx",
+          "frontend/src/components/account/ActiveSubscriptionsList.tsx",
+          "frontend/src/components/layout/Header.tsx"
+        ]
+      },
+      {
+        "id": "REQ-20",
+        "summary": "Update the WhatsApp checkout message generation to include customer details and order details in the message body: Customer Name, Email, Mobile Number, Delivery Address, Selected Items, Quantity, Total Amount; then redirect/open: https://wa.me/918999844337?text=[AUTO GENERATED ORDER MESSAGE].",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/utils/whatsappCheckout.ts",
+          "frontend/src/components/cart/CartSheet.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/whatsappCheckout.ts",
+          "frontend/src/components/cart/CartSheet.tsx"
+        ]
+      },
+      {
+        "id": "REQ-21",
+        "summary": "Ensure the existing cart-based WhatsApp checkout flow and the subscription WhatsApp action are both protected by the login gate and use the user profile fields where applicable (checkout message must include profile fields).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/sections/SubscriptionSection.tsx",
+          "frontend/src/components/cart/CartSheet.tsx",
+          "frontend/src/features/orders/orderMutations.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/sections/SubscriptionSection.tsx",
+          "frontend/src/components/cart/CartSheet.tsx",
+          "frontend/src/features/orders/orderMutations.ts"
+        ]
+      },
+      {
+        "id": "REQ-22",
+        "summary": "Implement backend storage (in the single Motoko main actor) for authenticated-user profile data and for saving order/subscription history records associated with the authenticated user identity.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/authorization/MixinAuthorization.mo",
+    "backend/authorization/access-control.mo",
+    "backend/main.mo",
+    "backend/migration.mo",
+    "build-request.json",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/account/AccountSheet.tsx",
+    "frontend/src/components/account/ActiveSubscriptionsList.tsx",
+    "frontend/src/components/account/OrderHistoryList.tsx",
+    "frontend/src/components/account/ProfileCompletionDialog.tsx",
+    "frontend/src/components/account/ProfileForm.tsx",
+    "frontend/src/components/auth/LoginDialog.tsx",
+    "frontend/src/components/auth/LoginRequiredDialog.tsx",
+    "frontend/src/components/cart/CartSheet.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/components/products/ProductCard.tsx",
+    "frontend/src/components/sections/SaladSection.tsx",
+    "frontend/src/components/sections/SubscriptionSection.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/features/auth/AuthGateProvider.tsx",
+    "frontend/src/features/auth/sessionCache.ts",
+    "frontend/src/features/auth/useAuthGate.ts",
+    "frontend/src/features/orders/orderMutations.ts",
+    "frontend/src/features/orders/orderQueries.ts",
+    "frontend/src/features/profile/profileQueries.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/src/utils/whatsappCheckout.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

@@ -1,0 +1,232 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Mandatory Internet Identity gate, profiles, account area, and WhatsApp checkout details",
+  "requirements": [
+    {
+      "id": "REQ-15",
+      "summary": "Gate cart adds, plan subscribe, checkout, and WhatsApp ordering actions behind mandatory authentication",
+      "acceptanceCriteria": [
+        "When not logged in, clicking any \"Add to Cart\" button does not modify cart state",
+        "When not logged in, clicking \"Subscribe\" does not modify cart state",
+        "When not logged in, clicking \"Proceed to Checkout\" does not open WhatsApp",
+        "When not logged in, clicking \"WhatsApp Subscribe\" does not open WhatsApp",
+        "When logged in, all actions above work as they did before (cart adds/subscribes/checkout open WhatsApp)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/auth/AuthGateProvider.tsx",
+          "operation": "create",
+          "description": "Create an auth-gating context that centralizes the \"blocked action\" flow (triggering the login-required popup and then login UI). Use shadcn-ui Dialog/Sheet patterns to present the popup/modal; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/auth/useAuthGate.ts",
+          "operation": "create",
+          "description": "Add a hook that exposes `requireAuth(action)`/`isAuthenticated` helpers (based on Internet Identity context) so feature components can block protected actions consistently."
+        },
+        {
+          "path": "frontend/src/components/products/ProductCard.tsx",
+          "operation": "modify",
+          "description": "Wrap the Add to Cart handler with the auth gate so logged-out users cannot add items and instead trigger the centralized blocked-action flow."
+        },
+        {
+          "path": "frontend/src/components/sections/SaladSection.tsx",
+          "operation": "modify",
+          "description": "Wrap the Add to Cart handler with the auth gate so logged-out users cannot add items and instead trigger the centralized blocked-action flow."
+        },
+        {
+          "path": "frontend/src/components/sections/SubscriptionSection.tsx",
+          "operation": "modify",
+          "description": "Protect both Subscribe (cart mutation) and WhatsApp Subscribe actions with the auth gate so logged-out users cannot trigger either action."
+        },
+        {
+          "path": "frontend/src/components/cart/CartSheet.tsx",
+          "operation": "modify",
+          "description": "Protect Proceed to Checkout with the auth gate so logged-out users cannot open WhatsApp and checkout is only available when authenticated."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire AuthGateProvider at the top level so all protected actions can trigger the same login-required flow and modal UI."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Show a popup with exact text and present login UI inline whenever a protected action is blocked",
+      "acceptanceCriteria": [
+        "Attempting a blocked action while logged out shows a modal/popup with exactly: \"Please Login to Continue\"",
+        "The login UI is immediately accessible from that popup without navigating away",
+        "After successfully logging in, the user can re-attempt the action and it succeeds"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/LoginRequiredDialog.tsx",
+          "operation": "create",
+          "description": "Implement the blocked-action popup UI that displays exactly \"Please Login to Continue\" and embeds/links directly to the Internet Identity login UI in the same modal flow. Use shadcn-ui Dialog and Button components for the popup and actions; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginDialog.tsx",
+          "operation": "create",
+          "description": "Create a reusable login modal that uses the existing Internet Identity integration to sign in, and can be opened either from Header or from the blocked-action dialog. Use shadcn-ui Dialog/Sheet for the container; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/auth/AuthGateProvider.tsx",
+          "operation": "modify",
+          "description": "Wire LoginRequiredDialog + LoginDialog so any blocked action triggers the required popup text and immediately presents the login UI without navigation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "summary": "Integrate Internet Identity login into the Header Login button and reflect logged-in state with logout",
+      "acceptanceCriteria": [
+        "Clicking the Header \"Login\" button opens a login modal/sheet",
+        "Logging in uses Internet Identity and results in a non-anonymous authenticated session",
+        "After login, the Header reflects logged-in state (e.g., shows profile/account options and logout)",
+        "Logout clears the authenticated session and returns the UI to logged-out state"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "modify",
+          "description": "Replace the static Login button with: (1) a Login action that opens the LoginDialog via the auth-gate/provider, and (2) when authenticated, an Account entry point plus Logout action. Ensure logout clears cached queries and returns UI to logged-out state. Use shadcn-ui Button/Dropdown/Sheet patterns as needed; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginDialog.tsx",
+          "operation": "modify",
+          "description": "Implement Internet Identity sign-in/sign-out wiring via the existing useInternetIdentity hook (no Email/Password and no Google OAuth), and expose callbacks so Header and the blocked-action popup can open/close consistently."
+        },
+        {
+          "path": "frontend/src/features/auth/sessionCache.ts",
+          "operation": "create",
+          "description": "Add a small utility to clear React Query caches on logout and on identity changes (e.g., user profile, order history, subscriptions) to satisfy the authorization component guidance. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "summary": "Provide profile capture/edit UI for required customer fields and enforce profile completion before WhatsApp checkout",
+      "acceptanceCriteria": [
+        "A logged-in user can view their profile details in the app UI",
+        "A logged-in user can edit and save Delivery Address",
+        "Full Name, Email Address, Mobile Number, and Delivery Address persist across refreshes and re-logins for the same authenticated user",
+        "The app prevents proceeding to WhatsApp checkout unless required profile fields (name, email, mobile, address) are present, and prompts the user to complete them"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/profile/profileQueries.ts",
+          "operation": "create",
+          "description": "Create React Query hooks/mutations that call backend actor capabilities for getCallerUserProfile, saveCallerUserProfile, and updateDeliveryAddress, with proper cache invalidation on save. Verify the selected authorization component frontend usage guidance before implementing."
+        },
+        {
+          "path": "frontend/src/components/account/ProfileForm.tsx",
+          "operation": "create",
+          "description": "Implement a profile form that captures Full Name, Email Address, Mobile Number, and Delivery Address for the authenticated user, with save/update flows. Use shadcn-ui Input, Label, Button, and form layout components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/account/ProfileCompletionDialog.tsx",
+          "operation": "create",
+          "description": "Create a modal that prompts logged-in users to complete missing required profile fields when they attempt WhatsApp checkout. Use shadcn-ui Dialog; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/cart/CartSheet.tsx",
+          "operation": "modify",
+          "description": "Before generating/opening the WhatsApp checkout link, load the current user profile and block checkout when required fields are missing by opening ProfileCompletionDialog."
+        },
+        {
+          "path": "frontend/src/features/auth/AuthGateProvider.tsx",
+          "operation": "modify",
+          "description": "Extend the centralized protected-action flow to optionally route authenticated users into profile completion when a protected action requires profile data (e.g., checkout message generation)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "summary": "Add a post-login account area for profile, address editing, order history, active subscriptions, and logout",
+      "acceptanceCriteria": [
+        "There is a discoverable account/profile entry point after login (e.g., from Header)",
+        "Profile screen shows stored user fields and allows updating address (and other profile fields as appropriate)",
+        "Order History screen lists previously generated checkouts for the user (at minimum, records created when the user clicks \"Proceed to Checkout\")",
+        "Active Subscriptions screen lists subscription items that have been checked out previously (at minimum, derived from saved checkout records containing subscription items)",
+        "Logout is available and returns user to logged-out state"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/account/AccountSheet.tsx",
+          "operation": "create",
+          "description": "Implement an account area UI (opened from Header) with sections/tabs for View Profile, Edit Address, Order History, Active Subscriptions, and Logout. Use shadcn-ui Sheet/Tabs components; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/orders/orderQueries.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for fetching order history and active subscriptions using the backend actor capabilities (getOrderHistory, getActiveSubscriptions). Ensure queries are only enabled when an authenticated actor is available."
+        },
+        {
+          "path": "frontend/src/components/account/OrderHistoryList.tsx",
+          "operation": "create",
+          "description": "Create a read-only list view that displays the user's saved order history records in the account area."
+        },
+        {
+          "path": "frontend/src/components/account/ActiveSubscriptionsList.tsx",
+          "operation": "create",
+          "description": "Create a read-only list view that displays the user's active subscriptions in the account area."
+        },
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "modify",
+          "description": "Wire the logged-in Header state to open AccountSheet (discoverable entry point) and provide Logout within the account area flow. Use shadcn-ui Sheet/Dropdown components if applicable; verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "summary": "Generate WhatsApp checkout deep link containing customer + order details and open the required wa.me URL",
+      "acceptanceCriteria": [
+        "Clicking \"Proceed to Checkout\" generates a WhatsApp deep link beginning with exactly `https://wa.me/918999844337?text=`",
+        "The generated WhatsApp message includes labeled customer fields (name/email/mobile/address) populated from the saved profile",
+        "The generated WhatsApp message lists each selected cart item with its quantity",
+        "The generated WhatsApp message includes the total amount",
+        "The full message is URL-encoded so WhatsApp opens with readable line breaks and text"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/whatsappCheckout.ts",
+          "operation": "modify",
+          "description": "Update WhatsApp message generation to include labeled customer fields (Customer Name, Email, Mobile Number, Delivery Address) plus selected items, quantity, and total amount; ensure the returned URL starts with exactly `https://wa.me/918999844337?text=` and that the message is URL-encoded with readable line breaks."
+        },
+        {
+          "path": "frontend/src/components/cart/CartSheet.tsx",
+          "operation": "modify",
+          "description": "Fetch the saved user profile before checkout, pass it into the updated WhatsApp message generator, and open the resulting URL in a new window/tab only when authenticated and profile-complete."
+        }
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "summary": "Ensure both cart checkout and subscription WhatsApp actions are protected by login gate and use profile fields where applicable",
+      "acceptanceCriteria": [
+        "Logged-out users cannot open WhatsApp via \"Proceed to Checkout\" and instead see the required login popup",
+        "Logged-out users cannot open WhatsApp via \"WhatsApp Subscribe\" and instead see the required login popup",
+        "Logged-in users can open WhatsApp via \"Proceed to Checkout\" and the message includes their stored profile details"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/sections/SubscriptionSection.tsx",
+          "operation": "modify",
+          "description": "Ensure WhatsApp Subscribe is blocked when logged out (showing the shared login-required popup), and when logged in it triggers the intended WhatsApp action; additionally, record subscription intent/history via backend actor capability where available."
+        },
+        {
+          "path": "frontend/src/components/cart/CartSheet.tsx",
+          "operation": "modify",
+          "description": "Ensure checkout is blocked when logged out (showing the shared login-required popup), and when logged in it records an order history entry via backend actor capability before opening WhatsApp."
+        },
+        {
+          "path": "frontend/src/features/orders/orderMutations.ts",
+          "operation": "create",
+          "description": "Add React Query mutations for addOrder and addSubscription to record that a checkout link was generated/opened (non-goal: confirmation of WhatsApp placement), and invalidate order/subscription queries after saving."
+        }
+      ]
+    }
+  ]
+}
