@@ -1,175 +1,60 @@
 {
   "kind": "build_request",
-  "title": "Add mandatory authentication gate, customer profiles, and secure WhatsApp checkout details",
+  "title": "Global copy update: “Ready to Cut” → “Ready to Cook”",
   "projectName": "Fresh Bites 49",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-15",
-      "text": "Implement a mandatory login gate so unauthenticated users cannot: add items to the cart, subscribe to plans, proceed to checkout, or trigger any WhatsApp ordering action (including WhatsApp checkout and WhatsApp subscribe).",
+      "id": "REQ-1",
+      "text": "Replace every user-facing occurrence of the exact text \"Ready to Cut\" with \"Ready to Cook\" across the entire Fresh Bites 49 frontend, including (but not limited to) section headings, product titles, category labels, and navigation/menu labels.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "Login is mandatory before ordering.\n\nUsers must NOT be able to:\n- Add items to cart\n- Subscribe to plans\n- Proceed to checkout\n- Use WhatsApp order\n\nWithout logging in."
+          "Replace every occurrence of the text: \"Ready to Cut\" With: \"Ready to Cook\" ... This includes: - Section headings - Product titles - Category labels - Any internal references"
         ]
       },
       "acceptanceCriteria": [
-        "When not logged in, clicking any \"Add to Cart\" button does not modify cart state",
-        "When not logged in, clicking \"Subscribe\" does not modify cart state",
-        "When not logged in, clicking \"Proceed to Checkout\" does not open WhatsApp",
-        "When not logged in, clicking \"WhatsApp Subscribe\" does not open WhatsApp",
-        "When logged in, all actions above work as they did before (cart adds/subscribes/checkout open WhatsApp)"
+        "A repo-wide search for the exact string \"Ready to Cut\" in frontend source files returns zero matches (excluding any historical build artifacts if present).",
+        "The category tile label previously shown as \"Ready to Cut\" now displays as \"Ready to Cook\" with identical styling (font, size, color, spacing).",
+        "The section heading previously shown as \"Ready to Cut\" now displays as \"Ready to Cook\" with identical styling (font, size, color, spacing).",
+        "All products that previously had names starting with \"Ready to Cut\" now display \"Ready to Cook\" in their titles, with no price/priceDisplay changes."
       ]
     },
     {
-      "id": "REQ-16",
-      "text": "For any blocked action (Add to Cart, Subscribe, Checkout, WhatsApp ordering), show a popup containing the exact text \"Please Login to Continue\" and then present the login UI in the same flow.",
+      "id": "REQ-2",
+      "text": "Update any internal in-app references that surface this label in navigation/scroll targets so the user sees and navigates using \"Ready to Cook\" consistently (e.g., menu item text and any visible label connected to in-page navigation), while keeping cart behavior and WhatsApp checkout behavior unchanged.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "If user clicks Add to Cart, Subscribe, or Checkout without login:\nShow popup:\n\n\"Please Login to Continue\"\n\nThen display login form."
+          "Make sure it updates everywhere consistently.",
+          "Do NOT change: ... Cart functionality ... WhatsApp checkout system",
+          "Keep design, styling and formatting exactly the same. Only update the wording from \"Ready to Cut\" to \"Ready to Cook\"."
         ]
       },
       "acceptanceCriteria": [
-        "Attempting a blocked action while logged out shows a modal/popup with exactly: \"Please Login to Continue\"",
-        "The login UI is immediately accessible from that popup without navigating away",
-        "After successfully logging in, the user can re-attempt the action and it succeeds"
-      ]
-    },
-    {
-      "id": "REQ-17",
-      "text": "Add an authentication experience that uses the existing Internet Identity integration as the supported login method, and integrate it into the existing Header \"Login\" button.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "Provide 2 login options:\n\n1. Email + Password\n2. Sign in with Google (Google OAuth)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Clicking the Header \"Login\" button opens a login modal/sheet",
-        "Logging in uses Internet Identity and results in a non-anonymous authenticated session",
-        "After login, the Header reflects logged-in state (e.g., shows profile/account options and logout)",
-        "Logout clears the authenticated session and returns the UI to logged-out state"
-      ]
-    },
-    {
-      "id": "REQ-18",
-      "text": "Implement a user profile capture/edit flow that collects and stores the following fields for the logged-in user: Full Name, Email Address, Mobile Number, Delivery Address.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "If user chooses to create an account, collect:\n\n- Full Name\n- Email Address\n- Password\n- Confirm Password\n- Mobile Number\n- Delivery Address"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A logged-in user can view their profile details in the app UI",
-        "A logged-in user can edit and save Delivery Address",
-        "Full Name, Email Address, Mobile Number, and Delivery Address persist across refreshes and re-logins for the same authenticated user",
-        "The app prevents proceeding to WhatsApp checkout unless required profile fields (name, email, mobile, address) are present, and prompts the user to complete them"
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "text": "Add a post-login account area that allows the logged-in user to: View Profile, Edit Address, View Order History, View Active Subscriptions, and Logout.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "After login, user can:\n\n- View Profile\n- Edit Address\n- View Order History\n- View Active Subscriptions\n- Logout"
-        ]
-      },
-      "acceptanceCriteria": [
-        "There is a discoverable account/profile entry point after login (e.g., from Header)",
-        "Profile screen shows stored user fields and allows updating address (and other profile fields as appropriate)",
-        "Order History screen lists previously generated checkouts for the user (at minimum, records created when the user clicks \"Proceed to Checkout\")",
-        "Active Subscriptions screen lists subscription items that have been checked out previously (at minimum, derived from saved checkout records containing subscription items)",
-        "Logout is available and returns user to logged-out state"
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "text": "Update the WhatsApp checkout message generation to include customer details and order details in the message body: Customer Name, Email, Mobile Number, Delivery Address, Selected Items, Quantity, Total Amount; then redirect/open: https://wa.me/918999844337?text=[AUTO GENERATED ORDER MESSAGE].",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "Automatically generate WhatsApp message including:\n\nCustomer Name:\nEmail:\nMobile Number:\nDelivery Address:\nSelected Items:\nQuantity:\nTotal Amount:\n\nRedirect to:\nhttps://wa.me/918999844337?text=[AUTO GENERATED ORDER MESSAGE]"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Clicking \"Proceed to Checkout\" generates a WhatsApp deep link beginning with exactly `https://wa.me/918999844337?text=`",
-        "The generated WhatsApp message includes labeled customer fields (name/email/mobile/address) populated from the saved profile",
-        "The generated WhatsApp message lists each selected cart item with its quantity",
-        "The generated WhatsApp message includes the total amount",
-        "The full message is URL-encoded so WhatsApp opens with readable line breaks and text"
-      ]
-    },
-    {
-      "id": "REQ-21",
-      "text": "Ensure the existing cart-based WhatsApp checkout flow and the subscription WhatsApp action are both protected by the login gate and use the user profile fields where applicable (checkout message must include profile fields).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "Users must NOT be able to:\n- ...\n- Use WhatsApp order\n\nWithout logging in.",
-          "WHATSAPP CHECKOUT MESSAGE\n\nWhen user clicks Proceed to Checkout:\n\nAutomatically generate WhatsApp message including:\n\nCustomer Name:\nEmail:\nMobile Number:\nDelivery Address:"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Logged-out users cannot open WhatsApp via \"Proceed to Checkout\" and instead see the required login popup",
-        "Logged-out users cannot open WhatsApp via \"WhatsApp Subscribe\" and instead see the required login popup",
-        "Logged-in users can open WhatsApp via \"Proceed to Checkout\" and the message includes their stored profile details"
-      ]
-    },
-    {
-      "id": "REQ-22",
-      "text": "Implement backend storage (in the single Motoko main actor) for authenticated-user profile data and for saving order/subscription history records associated with the authenticated user identity.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "After login, user can:\n- View Profile\n- Edit Address\n- View Order History\n- View Active Subscriptions"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend exposes methods to create/update and fetch the current user profile (keyed by caller identity)",
-        "Backend exposes methods to append and list order history records for the current user (keyed by caller identity)",
-        "Backend exposes methods to list active subscriptions for the current user (can be derived from stored order history containing subscription items, or stored separately)",
-        "Anonymous callers cannot read or write another user’s profile/history"
+        "All navigation/menu entries that previously displayed \"Ready to Cut\" now display \"Ready to Cook\" and still scroll to the correct section.",
+        "Cart add/remove/quantity controls continue to work for all products, including the \"Ready to Cook\" products, with no behavior change.",
+        "WhatsApp checkout URL generation and message formatting remain unchanged except that product line items reflect the updated product names if they previously contained \"Ready to Cut\"."
       ]
     }
   ],
   "constraints": [
-    "Frontend must not modify files under frontend/src/components/ui or other immutable paths listed in SYSTEM_CONTEXT.",
-    "Backend must remain a single Motoko actor in backend/main.mo; only create backend/migration.mo if an upgrade requires state migration.",
-    "User-facing text must be in English.",
-    "Third-party authentication methods (Email/Password authentication and Google OAuth) are not supported on this platform; implement authentication using the existing Internet Identity integration instead."
+    "Do not change prices or priceDisplay values anywhere.",
+    "Do not change any images or image URLs.",
+    "Do not change layout, spacing, styling, or formatting; only update the specified wording.",
+    "Do not change cart functionality.",
+    "Do not change the WhatsApp checkout system (phone number, URL format, or message structure), aside from naturally reflecting the updated product names if applicable."
   ],
   "nonGoals": [
-    "Implementing real Google OAuth login or Google account linking.",
-    "Implementing Email + Password authentication (password storage, reset flows, verification emails, etc.).",
-    "Integrating external databases or third-party auth providers.",
-    "Guaranteeing that WhatsApp order placement status is confirmed (the app can only record that a checkout link was generated/opened)."
+    "Redesigning any section or altering the site theme.",
+    "Changing product/category data structures beyond the minimum text substitution required.",
+    "Backend changes or migrations."
   ],
   "imageRequirements": {
     "required": [],

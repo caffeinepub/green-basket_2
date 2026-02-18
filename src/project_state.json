@@ -1,180 +1,26 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
-  "summary": "Build a premium, smooth, mobile-first grocery e-commerce website named \"Fresh Bites 49\" with modern Zepto/Blinkit-style UI, product catalog by categories (Vegetables, Ready to Cut, Salads), working cart/checkout flow, and WhatsApp ordering + floating chat integration, with mandatory login/authentication required before users can add to cart, subscribe, or checkout.",
+  "projectStateVersion": 3,
+  "summary": "Website update request for \"Fresh Bites 49\": globally replace the wording \"Ready to Cut\" with \"Ready to Cook\" across all site text while keeping design, pricing, images, layout, cart, and WhatsApp checkout unchanged.",
   "architectural_notes": [
-    "Checkout flow: \"Proceed to Checkout\" should build a single dynamic, URL-encoded WhatsApp message from current cart contents (item name, quantity, individual price, total) and open https://wa.me/918999844337?text=... . If this is implemented, remove individual per-product WhatsApp order buttons to avoid duplication.",
-    "Auth gating: Users must be logged in before they can Add to Cart, Subscribe, use WhatsApp ordering, or Proceed to Checkout. If not logged in, show popup \"Please Login to Continue\" and present the login form.",
-    "WhatsApp checkout message (Proceed to Checkout) must include customer details (Customer Name, Email, Mobile Number, Delivery Address) plus cart items (name, quantity) and Total Amount; URL-encode the full message and open https://wa.me/918999844337?text=... ."
+    "Do not modify prices, images, layout, cart functionality, or WhatsApp checkout system; only change text from \"Ready to Cut\" to \"Ready to Cook\" and keep styling/formatting identical."
   ],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-build-a-premium-smooth-mobile-first-single-page-grocery-storefront-for-the-brand-fresh-bites-49-with-a-modern-zepto-blinkit-like-ui-white-soft-green-theme-rounded-product-cards-soft-shadows-smooth-hover-tap-animations-and-smooth-scrolling-ensure-the-entire-ui-is-fully-responsive-across-mobile-tablet-desktop",
-      "title": "Build a premium, smooth, mobile-first single-page grocery storefront for the brand “Fresh Bites 49” with a modern Zepto/Blinkit-like UI: white + soft green theme, rounded product cards, soft shadows, smooth hover/tap animations, and smooth scrolling; ensure the entire UI is fully responsive across mobile/tablet/desktop.",
+      "id": "feature-replace-every-user-facing-occurrence-of-the-exact-text-ready-to-cut-with-ready-to-cook-across-the-entire-fresh-bites-49-frontend-including-but-not-limited-to-section-headings-product-titles-category-labels-and-navigation-menu-labels",
+      "title": "Replace every user-facing occurrence of the exact text \"Ready to Cut\" with \"Ready to Cook\" across the entire Fresh Bites 49 frontend, including (but not limited to) section headings, product titles, category labels, and navigation/menu labels.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-implement-the-header-exactly-with-logo-text-fresh-bites-49-a-cart-icon-a-login-button-and-a-menu-icon-ensure-icons-buttons-are-functional-in-the-ui-menu-opens-a-navigation-panel-and-cart-opens-cart-view-drawer",
-      "title": "Implement the header exactly with: logo text “Fresh Bites 49”, a cart icon, a login button, and a menu icon; ensure icons/buttons are functional in the UI (menu opens a navigation panel and cart opens cart view/drawer).",
+      "id": "feature-update-any-internal-in-app-references-that-surface-this-label-in-navigation-scroll-targets-so-the-user-sees-and-navigates-using-ready-to-cook-consistently-e-g-menu-item-text-and-any-visible-label-connected-to-in-page-navigation-while-keeping-cart-behavior-and-whatsapp-checkout-behavior-unchanged",
+      "title": "Update any internal in-app references that surface this label in navigation/scroll targets so the user sees and navigates using \"Ready to Cook\" consistently (e.g., menu item text and any visible label connected to in-page navigation), while keeping cart behavior and WhatsApp checkout behavior unchanged.",
       "reqIds": [
         "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-the-hero-section-with-a-background-image-of-fresh-vegetables-fruits-heading-fresh-vegetables-fruits-delivered-daily-subheading-farm-fresh-affordable-prices-free-home-delivery-and-a-green-shop-now-button-that-scrolls-to-the-product-sections-add-a-floating-whatsapp-chat-button-linking-to-https-wa-me-918999844337",
-      "title": "Create the Hero section with a background image of fresh vegetables & fruits, heading “Fresh Vegetables & Fruits Delivered Daily”, subheading “Farm Fresh | Affordable Prices | Free Home Delivery”, and a green “Shop Now” button that scrolls to the product sections; add a floating WhatsApp chat button linking to https://wa.me/918999844337.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-shop-by-category-section-with-3-image-cards-labeled-vegetables-ready-to-cut-salads-clicking-each-card-scrolls-to-its-respective-section",
-      "title": "Add a “Shop by Category” section with 3 image cards labeled: Vegetables, Ready to Cut, Salads; clicking each card scrolls to its respective section.",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-the-vegetable-section-showing-the-provided-vegetable-products-with-price-text-exactly-as-specified-each-product-card-must-include-an-image-the-price-an-add-to-cart-button-and-a-whatsapp-order-button-that-opens-a-whatsapp-order-link-using-the-template-https-wa-me-918999844337-text-i-20want-20to-20order-20-product-name-with-the-product-name-url-encoded",
-      "title": "Create the “Vegetable Section” showing the provided vegetable products with price text exactly as specified; each product card must include: an image, the price, an “Add to Cart” button, and a “WhatsApp Order” button that opens a WhatsApp order link using the template https://wa.me/918999844337?text=I%20want%20to%20order%20[PRODUCT NAME] with the product name URL-encoded.",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-display-the-price-change-notice-directly-below-the-vegetable-section-with-the-exact-text-prices-may-change-daily-based-on-market-rates-please-confirm-current-price-on-whatsapp-before-ordering",
-      "title": "Display the price-change notice directly below the Vegetable section with the exact text: “Prices may change daily based on market rates. Please confirm current price on WhatsApp before ordering.”",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-the-ready-to-cut-section-showing-the-provided-items-and-prices-each-item-must-include-an-add-to-cart-button-and-a-whatsapp-order-button-using-https-wa-me-918999844337-text-i-20want-20to-20order-20-product-name-with-the-item-name-url-encoded",
-      "title": "Create the “Ready to Cut Section” showing the provided items and prices; each item must include an “Add to Cart” button and a “WhatsApp Order” button using https://wa.me/918999844337?text=I%20want%20to%20order%20[PRODUCT NAME] with the item name URL-encoded.",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-the-salad-section-with-the-product-fresh-mixed-fruit-salad-box-49-per-box-including-an-add-to-cart-button-and-a-whatsapp-order-button-linking-to-https-wa-me-918999844337-text-i-20want-20to-20order-20fresh-20mixed-20fruit-20salad-20box",
-      "title": "Create the “Salad Section” with the product “Fresh Mixed Fruit Salad Box – ₹49 per box”, including an “Add to Cart” button and a WhatsApp Order button linking to https://wa.me/918999844337?text=I%20want%20to%20order%20Fresh%20Mixed%20Fruit%20Salad%20Box.",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-the-subscription-section-with-plans-25-days-1000-28-days-1200-30-days-1400-each-plan-must-show-1-fruit-salad-daily-include-a-subscribe-button-adds-the-plan-to-the-cart-as-a-subscription-item-and-a-whatsapp-subscribe-button-linking-to-https-wa-me-918999844337-text-i-20want-20to-20subscribe",
-      "title": "Create the “Subscription Section” with plans: “25 Days – ₹1000”, “28 Days – ₹1200”, “30 Days – ₹1400”; each plan must show “1 fruit salad daily”, include a “Subscribe” button (adds the plan to the cart as a subscription item), and a “WhatsApp Subscribe” button linking to https://wa.me/918999844337?text=I%20want%20to%20subscribe.",
-      "reqIds": [
-        "REQ-9"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-a-working-cart-system-usable-from-all-product-plan-sections-users-can-add-items-increase-decrease-quantities-remove-items-and-see-a-running-subtotal-and-total-cart-state-should-persist-across-page-refreshes-in-the-browser-e-g-via-local-storage",
-      "title": "Implement a working cart system usable from all product/plan sections: users can add items, increase/decrease quantities, remove items, and see a running subtotal and total; cart state should persist across page refreshes in the browser (e.g., via local storage).",
-      "reqIds": [
-        "REQ-10"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-create-the-footer-section-with-brand-name-fresh-bites-49-description-fresh-vegetables-and-fruit-salads-delivered-daily-contact-block-showing-phone-91-89998-44337-and-whatsapp-91-89998-44337-and-a-visible-terms-conditions-note",
-      "title": "Create the Footer section with: brand name “Fresh Bites 49”, description “Fresh vegetables and fruit salads delivered daily.”, contact block showing “Phone: +91 89998 44337” and “WhatsApp: +91 89998 44337”, and a visible “Terms & Conditions” note.",
-      "reqIds": [
-        "REQ-11"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-generate-and-include-required-static-images-hero-background-and-category-images-plus-at-least-one-high-quality-product-placeholder-image-and-wire-them-into-the-ui-from-frontend-public-assets-generated-do-not-serve-images-through-the-backend",
-      "title": "Generate and include required static images (hero background and category images, plus at least one high-quality product placeholder image) and wire them into the UI from frontend/public/assets/generated (do not serve images through the backend).",
-      "reqIds": [
-        "REQ-12"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-a-dynamic-whatsapp-checkout-flow-when-the-user-clicks-the-cart-drawer-button-labeled-proceed-to-checkout-generate-a-whatsapp-deep-link-using-exactly-https-wa-me-918999844337-text-plus-a-url-encoded-message-that-lists-each-cart-item-with-product-name-quantity-and-individual-price-and-includes-the-total-amount-then-redirect-open-whatsapp-using-that-generated-link",
-      "title": "Implement a dynamic WhatsApp checkout flow: when the user clicks the cart drawer button labeled \"Proceed to Checkout\", generate a WhatsApp deep link using exactly `https://wa.me/918999844337?text=` plus a URL-encoded message that lists each cart item with product name, quantity, and individual price, and includes the total amount, then redirect/open WhatsApp using that generated link.",
-      "reqIds": [
-        "REQ-13"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-remove-per-product-whatsapp-ordering-ui-actions-now-that-cart-based-whatsapp-checkout-exists-remove-the-individual-whatsapp-order-buttons-handlers-rendered-on-product-cards-and-the-salad-section-so-users-are-directed-to-use-the-cart-proceed-to-checkout-flow-instead",
-      "title": "Remove per-product WhatsApp ordering UI actions now that cart-based WhatsApp checkout exists: remove the individual \"WhatsApp Order\" buttons/handlers rendered on product cards and the Salad section, so users are directed to use the cart \"Proceed to Checkout\" flow instead.",
-      "reqIds": [
-        "REQ-14"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-a-mandatory-login-gate-so-unauthenticated-users-cannot-add-items-to-the-cart-subscribe-to-plans-proceed-to-checkout-or-trigger-any-whatsapp-ordering-action-including-whatsapp-checkout-and-whatsapp-subscribe",
-      "title": "Implement a mandatory login gate so unauthenticated users cannot: add items to the cart, subscribe to plans, proceed to checkout, or trigger any WhatsApp ordering action (including WhatsApp checkout and WhatsApp subscribe).",
-      "reqIds": [
-        "REQ-15"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-for-any-blocked-action-add-to-cart-subscribe-checkout-whatsapp-ordering-show-a-popup-containing-the-exact-text-please-login-to-continue-and-then-present-the-login-ui-in-the-same-flow",
-      "title": "For any blocked action (Add to Cart, Subscribe, Checkout, WhatsApp ordering), show a popup containing the exact text \"Please Login to Continue\" and then present the login UI in the same flow.",
-      "reqIds": [
-        "REQ-16"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-an-authentication-experience-that-uses-the-existing-internet-identity-integration-as-the-supported-login-method-and-integrate-it-into-the-existing-header-login-button",
-      "title": "Add an authentication experience that uses the existing Internet Identity integration as the supported login method, and integrate it into the existing Header \"Login\" button.",
-      "reqIds": [
-        "REQ-17"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-a-user-profile-capture-edit-flow-that-collects-and-stores-the-following-fields-for-the-logged-in-user-full-name-email-address-mobile-number-delivery-address",
-      "title": "Implement a user profile capture/edit flow that collects and stores the following fields for the logged-in user: Full Name, Email Address, Mobile Number, Delivery Address.",
-      "reqIds": [
-        "REQ-18"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-post-login-account-area-that-allows-the-logged-in-user-to-view-profile-edit-address-view-order-history-view-active-subscriptions-and-logout",
-      "title": "Add a post-login account area that allows the logged-in user to: View Profile, Edit Address, View Order History, View Active Subscriptions, and Logout.",
-      "reqIds": [
-        "REQ-19"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-update-the-whatsapp-checkout-message-generation-to-include-customer-details-and-order-details-in-the-message-body-customer-name-email-mobile-number-delivery-address-selected-items-quantity-total-amount-then-redirect-open-https-wa-me-918999844337-text-auto-generated-order-message",
-      "title": "Update the WhatsApp checkout message generation to include customer details and order details in the message body: Customer Name, Email, Mobile Number, Delivery Address, Selected Items, Quantity, Total Amount; then redirect/open: https://wa.me/918999844337?text=[AUTO GENERATED ORDER MESSAGE].",
-      "reqIds": [
-        "REQ-20"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-the-existing-cart-based-whatsapp-checkout-flow-and-the-subscription-whatsapp-action-are-both-protected-by-the-login-gate-and-use-the-user-profile-fields-where-applicable-checkout-message-must-include-profile-fields",
-      "title": "Ensure the existing cart-based WhatsApp checkout flow and the subscription WhatsApp action are both protected by the login gate and use the user profile fields where applicable (checkout message must include profile fields).",
-      "reqIds": [
-        "REQ-21"
       ],
       "version": 1
     }
@@ -182,122 +28,11 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create mobile-first premium grocery website UI (white + soft green theme, rounded cards, smooth scrolling, fully responsive)",
+      "summary": "Globally replace all occurrences of \"Ready to Cut\" with \"Ready to Cook\" across headings, product titles, category labels, and internal references without changing pricing, images, layout, cart, or WhatsApp checkout.",
       "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Header with logo \"Fresh Bites 49\", cart icon, login button, and menu icon",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Hero section with background image (fresh vegetables & fruits), headline/subheadline, and green \"Shop Now\" CTA",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-4",
-      "summary": "Add WhatsApp floating chat button linking to https://wa.me/918999844337",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-5",
-      "summary": "Shop by Category section with 3 image cards: Vegetables, Ready to Cut, Salads",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-6",
-      "summary": "Vegetables section with product list (image, price, Add to Cart, WhatsApp Order link template with product name)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-7",
-      "summary": "Add price-change notice under Vegetables section (confirm price on WhatsApp)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-8",
-      "summary": "Ready to Cut section with items and actions (Add to Cart + WhatsApp Order link template with product name)",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-9",
-      "summary": "Salad section: Fresh Mixed Fruit Salad Box ₹49 with Add to Cart + WhatsApp Order link",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-10",
-      "summary": "Subscription plans for fruit salad (25/28/30 days) with Subscribe button and WhatsApp Subscribe link",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-11",
-      "summary": "Working cart system (add/remove/update quantities) supporting items across sections",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-12",
-      "summary": "Footer with brand description, contact phone/WhatsApp, and Terms & Conditions note",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-13",
-      "summary": "Implement WhatsApp cart-based checkout: on \"Proceed to Checkout\" generate URL-encoded WhatsApp message listing cart items (name, qty, individual price) + total amount, then redirect; remove per-product WhatsApp buttons if this is implemented",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-14",
-      "summary": "Add mandatory login/auth system: block Add to Cart, Subscribe, WhatsApp order, and Proceed to Checkout until user logs in; show \"Please Login to Continue\" popup + login form when blocked actions are attempted",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-15",
-      "summary": "Implement authentication methods: Email+Password login and Google Sign-In (Google OAuth) with a clear Google button + logo",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-16",
-      "summary": "Implement user signup/registration form collecting full name, email, password+confirm password, mobile number, and delivery address",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-17",
-      "summary": "Post-login account area: view profile, edit address, view order history, view active subscriptions, logout",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-18",
-      "summary": "Enhance WhatsApp checkout message to include customer details (name, email, mobile, delivery address) along with selected items, quantities, and total amount",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-26",
-      "summary": "Implement backend storage (in the single Motoko main actor) for authenticated-user profile data and for saving order/subscription history records associated with the authenticated user identity.",
-      "reqIds": [
-        "REQ-22"
-      ],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
   "projectName": "Fresh Bites 49",
   "clarification_mode": "instant",
   "clarification_rounds": 0

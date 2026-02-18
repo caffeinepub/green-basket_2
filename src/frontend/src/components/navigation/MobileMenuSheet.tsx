@@ -9,7 +9,7 @@ const menuItems = [
   { label: 'Home', href: '#hero' },
   { label: 'Categories', href: '#categories' },
   { label: 'Vegetables', href: '#vegetables' },
-  { label: 'Ready to Cut', href: '#ready-to-cut' },
+  { label: 'Ready to Cook', href: '#ready-to-cut' },
   { label: 'Salads', href: '#salads' },
   { label: 'Subscription', href: '#subscription' },
   { label: 'Contact', href: '#footer' }

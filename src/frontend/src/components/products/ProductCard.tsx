@@ -1,4 +1,5 @@
 import { ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
 import { useCart } from '../../features/cart/useCart';
 import { useAuthGate } from '../../features/auth/useAuthGate';
 import { Product } from '../../data/products';
@@ -7,9 +8,12 @@ interface ProductCardProps {
   product: Product;
 }
 
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80';
+
 export default function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
   const { requireAuth } = useAuthGate();
+  const [imgSrc, setImgSrc] = useState(product.image);
 
   const handleAddToCart = () => {
     requireAuth(() => {
@@ -24,12 +28,18 @@ export default function ProductCard({ product }: ProductCardProps) {
     });
   };
 
+  const handleImageError = () => {
+    setImgSrc(FALLBACK_IMAGE);
+  };
+
   return (
     <div className="bg-card rounded-xl border shadow-soft hover:shadow-soft-lg transition-all duration-300 overflow-hidden group">
       <div className="aspect-square overflow-hidden bg-muted">
         <img
-          src={product.image}
+          src={imgSrc}
           alt={product.name}
+          loading="lazy"
+          onError={handleImageError}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>

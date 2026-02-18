@@ -1,12 +1,16 @@
 import { ShoppingCart } from 'lucide-react';
+import { useState } from 'react';
 import { useCart } from '../../features/cart/useCart';
 import { useAuthGate } from '../../features/auth/useAuthGate';
 import { salads } from '../../data/products';
+
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80';
 
 export default function SaladSection() {
   const { addItem } = useCart();
   const { requireAuth } = useAuthGate();
   const salad = salads[0];
+  const [imgSrc, setImgSrc] = useState(salad.image);
 
   const handleAddToCart = () => {
     requireAuth(() => {
@@ -21,6 +25,10 @@ export default function SaladSection() {
     });
   };
 
+  const handleImageError = () => {
+    setImgSrc(FALLBACK_IMAGE);
+  };
+
   return (
     <section id="salads" className="py-12 md:py-16">
       <div className="container">
@@ -31,8 +39,10 @@ export default function SaladSection() {
           <div className="bg-card rounded-xl border shadow-soft-lg overflow-hidden">
             <div className="aspect-square overflow-hidden bg-muted">
               <img
-                src={salad.image}
+                src={imgSrc}
                 alt={salad.name}
+                loading="lazy"
+                onError={handleImageError}
                 className="w-full h-full object-cover"
               />
             </div>

@@ -6,11 +6,11 @@ import Time "mo:core/Time";
 import Text "mo:core/Text";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
-import Migration "migration";
+
 import List "mo:core/List";
 
 // Specify the data migration function in with-clause
-(with migration = Migration.run)
+
 actor {
   public type UserProfile = {
     fullName : Text;

@@ -7,7 +7,7 @@ const categories = [
   },
   {
     id: 'ready-to-cut',
-    name: 'Ready to Cut',
+    name: 'Ready to Cook',
     image: '/assets/generated/category-ready-to-cut.dim_800x600.jpg',
     href: '#ready-to-cut'
   },
